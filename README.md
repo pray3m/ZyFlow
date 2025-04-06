@@ -6,42 +6,40 @@ This project is a full-stack SaaS web application where users can create, edit, 
 
 ## 🚀 Features
 
-• 🔐 Authentication — Clerk integration for secure login/signup
-• 🧩 Visual Workflow Builder — Drag-and-drop UI using React Flow
-• 🧠 AI Tasks — Auto-detect fields like username/password with AI
-• 🗃️ Database — Prisma ORM with SQLite
-• 💳 Billing System — Stripe integration for credit purchases
-• 🧮 Credit Consumption — Track usage per workflow execution
-• 📅 Scheduler — Run workflows on a schedule (no 3rd-party tools)
-• 🔍 Execution Viewer — See logs, inputs, outputs, and credit usage
-• 🔐 Credentials Manager — Securely store API keys and passwords
-• 🌐 Webhooks — Deliver scraped data to external services
-• 📊 Dashboard — View stats, past executions, and credit usage
-• 🌓 Dark Mode — Theme toggle with next-themes
+- 🔐 Authentication — Clerk integration for secure login/signup
+- 🧩 Visual Workflow Builder — Drag-and-drop UI using React Flow
+- 🧠 AI Tasks — Auto-detect fields like username/password with AI
+- 🗃️ Database — Prisma ORM with SQLite
+- 💳 Billing System — Stripe integration for credit purchases
+- 🧮 Credit Consumption — Track usage per workflow execution
+- 📅 Scheduler — Run workflows on a schedule (no 3rd-party tools)
+- 🔍 Execution Viewer — See logs, inputs, outputs, and credit usage
+- 🔐 Credentials Manager — Securely store API keys and passwords
+- 🌐 Webhooks — Deliver scraped data to external services
+- 📊 Dashboard — View stats, past executions, and credit usage
+- 🌓 Dark Mode — Theme toggle with next-themes
 
 ## 📦 Tech Stack
 
-• Frontend: Next.js 14, TypeScript, TailwindCSS, ShadCN UI
-• State Management: React Query
-• Database: Prisma + SQLite
-• Auth: Clerk
-• Payments: Stripe
-• AI: OpenAI (for field detection)
-• Other: React Flow, Zod, Zustand, Next-themes
+- Frontend: Next.js 14, TypeScript, TailwindCSS, ShadCN UI
+- State Management: React Query
+- Database: Prisma + SQLite
+- Auth: Clerk
+- Payments: Stripe
+- AI: OpenAI (for field detection)
+- Other: React Flow, Zod, Zustand, Next-themes
 
-🛠 To-Do / Roadmap (Step-by-Step from Video)
+## 🛠 To-Do / Roadmap (Step-by-Step from Video)
 
 This roadmap mirrors the exact development flow shown in the ScrapeFlow Full Stack SaaS YouTube Tutorial ↗.
 
-⭕ Phase 1: Project Setup
-
+#### ⭕ Phase 1: Project Setup
 - [x] Initialize Next.js app with TypeScript, Tailwind, ESLint
 - [ ] Install and configure ShadCN UI (via npx shadcn-ui@latest init)
 - [ ] Setup Tailwind config and theme
 - [ ] Setup folder structure with route groups
 
-⭕ Phase 2: Layout & Navigation
-
+#### ⭕ Phase 2: Layout & Navigation
 - [ ] Create reusable layout components
 - [ ] Add sidebar with navigation (Home, Workflows, Credentials, Billing)
 - [ ] Add responsive mobile sidebar
@@ -49,22 +47,19 @@ This roadmap mirrors the exact development flow shown in the ScrapeFlow Full Sta
 - [ ] Implement dark mode with next-themes
 - [ ] Add 404 Not Found page
 
-⭕ Phase 3: Clerk Authentication
-
+#### ⭕ Phase 3: Clerk Authentication
 - [ ] Install and configure Clerk
 - [ ] Setup sign in / sign up pages
 - [ ] Add middleware for protected routes
 - [ ] Add user button in header
 
-⭕ Phase 4: Database Setup with Prisma
-
+#### ⭕ Phase 4: Database Setup with Prisma
 - [ ] Install Prisma and setup SQLite
 - [ ] Define schema for Workflow model
 - [ ] Create database migration
 - [ ] Setup Prisma client with singleton pattern
 
-⭕ Phase 5: Workflows Page
-
+#### ⭕ Phase 5: Workflows Page
 - [ ] Create workflows dashboard page
 - [ ] Fetch and display user workflows
 - [ ] Add skeleton loading UI
@@ -74,8 +69,7 @@ This roadmap mirrors the exact development flow shown in the ScrapeFlow Full Sta
 - [ ] Redirect to editor after creation
 - [ ] Setup React Flow for visual workflow builder
 
-⭕ Phase 6: Workflow Editor
-
+#### ⭕ Phase 6: Workflow Editor
 - [ ] Setup React Flow for visual workflow builder
 - [ ] Add task menu and draggable nodes
 - [ ] Connect nodes with edges
@@ -84,15 +78,13 @@ This roadmap mirrors the exact development flow shown in the ScrapeFlow Full Sta
 - [ ] Delete / duplicate tasks
 - [ ] ✅ Validate workflow structure
 
-⭕ Phase 7: Workflow Execution
-
+#### ⭕ Phase 7: Workflow Execution
 - [ ] Build execution engine (headless browser)
 - [ ] Create execution viewer page
 - [ ] Display logs, inputs, outputs, credit usage
 - [ ] Show past executions table
 
-⭕ Phase 8: Task Types
-
+#### ⭕ Phase 8: Task Types
 - [ ] Navigate to URL task
 - [ ] Fill input field task
 - [ ] Click element task
@@ -104,35 +96,30 @@ This roadmap mirrors the exact development flow shown in the ScrapeFlow Full Sta
 - [ ] Deliver data via webhook task
 - [ ] Bypass scraping protection (BrightData)
 
-⭕ Phase 9: User Account & Billing
-
+#### ⭕ Phase 9: User Account & Billing
 - [ ] Add user account settings page
 - [ ] Setup Stripe integration
 - [ ] Create billing page
 - [ ] Display credit balance, history, invoices
 - [ ] Track credit usage per execution
 
-⭕ Phase 10: Execution Scheduler
-
+#### ⭕ Phase 10: Execution Scheduler
 - [ ] Build custom scheduler (no 3rd-party tools)
 - [ ] Allow users to set execution intervals
 - [ ] Store and run scheduled jobs
 
-⭕ Phase 11: Credentials System
-
+#### ⭕ Phase 11: Credentials System
 - [ ] Add credentials manager page
 - [ ] Store encrypted API keys/passwords
 - [ ] Integrate credentials into tasks
 
-⭕ Phase 12: Final Touches
-
+#### ⭕ Phase 12: Final Touches
 - [ ] Add workflow publish/unpublish toggle
 - [ ] Add duplicate workflow button
 - [ ] Add dashboard with workflow stats
 - [ ] Polish UI and loading states
 
-🔜 Bonus / Future Improvements
-
+#### 🔜 Bonus / Future Improvements
 - [ ] Add unit/integration tests (Jest + RTL)
 - [ ] Dockerize app for deployment
 - [ ] Add OAuth providers (GitHub, Discord)
