@@ -33,33 +33,30 @@ This project is a full-stack SaaS web application where users can create, edit, 
 
 This roadmap mirrors the development flow ↗.
 
-#### ⭕ Phase 1: Project Setup
 - [x] Initialize Next.js app with TypeScript, Tailwind, ESLint
-- [x] Install and configure ShadCN UI (via npx shadcn-ui@latest init)
-- [ ] Setup Tailwind config and theme
-- [ ] Setup folder structure with route groups
-
-#### ⭕ Phase 2: Layout & Navigation
-- [ ] Create reusable layout components
-- [ ] Add sidebar with navigation (Home, Workflows, Credentials, Billing)
+- [x] Install and configure ShadCN UI (via npx shadcn-ui@latest init) , tailwind
+- [ ] Setup folder structure with navigation
 - [ ] Add responsive mobile sidebar
 - [ ] Add breadcrumb navigation
 - [ ] Implement dark mode with next-themes
 - [ ] Add 404 Not Found page
 
 #### ⭕ Phase 3: Clerk Authentication
+
 - [ ] Install and configure Clerk
 - [ ] Setup sign in / sign up pages
 - [ ] Add middleware for protected routes
 - [ ] Add user button in header
 
 #### ⭕ Phase 4: Database Setup with Prisma
+
 - [ ] Install Prisma and setup SQLite
 - [ ] Define schema for Workflow model
 - [ ] Create database migration
 - [ ] Setup Prisma client with singleton pattern
 
 #### ⭕ Phase 5: Workflows Page
+
 - [ ] Create workflows dashboard page
 - [ ] Fetch and display user workflows
 - [ ] Add skeleton loading UI
@@ -70,6 +67,7 @@ This roadmap mirrors the development flow ↗.
 - [ ] Setup React Flow for visual workflow builder
 
 #### ⭕ Phase 6: Workflow Editor
+
 - [ ] Setup React Flow for visual workflow builder
 - [ ] Add task menu and draggable nodes
 - [ ] Connect nodes with edges
@@ -79,12 +77,14 @@ This roadmap mirrors the development flow ↗.
 - [ ] ✅ Validate workflow structure
 
 #### ⭕ Phase 7: Workflow Execution
+
 - [ ] Build execution engine (headless browser)
 - [ ] Create execution viewer page
 - [ ] Display logs, inputs, outputs, credit usage
 - [ ] Show past executions table
 
 #### ⭕ Phase 8: Task Types
+
 - [ ] Navigate to URL task
 - [ ] Fill input field task
 - [ ] Click element task
@@ -97,6 +97,7 @@ This roadmap mirrors the development flow ↗.
 - [ ] Bypass scraping protection (BrightData)
 
 #### ⭕ Phase 9: User Account & Billing
+
 - [ ] Add user account settings page
 - [ ] Setup Stripe integration
 - [ ] Create billing page
@@ -104,22 +105,26 @@ This roadmap mirrors the development flow ↗.
 - [ ] Track credit usage per execution
 
 #### ⭕ Phase 10: Execution Scheduler
+
 - [ ] Build custom scheduler (no 3rd-party tools)
 - [ ] Allow users to set execution intervals
 - [ ] Store and run scheduled jobs
 
 #### ⭕ Phase 11: Credentials System
+
 - [ ] Add credentials manager page
 - [ ] Store encrypted API keys/passwords
 - [ ] Integrate credentials into tasks
 
 #### ⭕ Phase 12: Final Touches
+
 - [ ] Add workflow publish/unpublish toggle
 - [ ] Add duplicate workflow button
 - [ ] Add dashboard with workflow stats
 - [ ] Polish UI and loading states
 
 #### 🔜 Bonus / Future Improvements
+
 - [ ] Add unit/integration tests (Jest + RTL)
 - [ ] Dockerize app for deployment
 - [ ] Add OAuth providers (GitHub, Discord)
