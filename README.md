@@ -35,7 +35,7 @@ This roadmap mirrors the development flow ↗.
 
 - [x] Initialize Next.js app with TypeScript, Tailwind, ESLint
 - [x] Install and configure ShadCN UI (via npx shadcn-ui@latest init) , tailwind
-- [ ] Setup folder structure with navigation
+- [x] Setup folder structure with navigation
 - [ ] Add responsive mobile sidebar
 - [ ] Add breadcrumb navigation
 - [ ] Implement dark mode with next-themes

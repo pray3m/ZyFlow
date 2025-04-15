@@ -143,4 +143,8 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .b {
+    @apply border-2 border-red-600;
+  }
 }
