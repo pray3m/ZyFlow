@@ -29,13 +29,13 @@ This project is a full-stack SaaS web application where users can create, edit, 
 - AI: OpenAI (for field detection)
 - Other: React Flow, Zod, Zustand, Next-themes
 
-## 🛠 To-Do / Roadmap (Step-by-Step from Video)
+## 🛠 To-Do / Roadmap
 
-This roadmap mirrors the exact development flow shown in the ScrapeFlow Full Stack SaaS YouTube Tutorial ↗.
+This roadmap mirrors the development flow ↗.
 
 #### ⭕ Phase 1: Project Setup
 - [x] Initialize Next.js app with TypeScript, Tailwind, ESLint
-- [ ] Install and configure ShadCN UI (via npx shadcn-ui@latest init)
+- [x] Install and configure ShadCN UI (via npx shadcn-ui@latest init)
 - [ ] Setup Tailwind config and theme
 - [ ] Setup folder structure with route groups
 
