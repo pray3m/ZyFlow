@@ -35,10 +35,9 @@ This roadmap mirrors the development flow ↗.
 
 - [x] Initialize Next.js app with TypeScript, Tailwind, ESLint
 - [x] Install and configure ShadCN UI (via npx shadcn-ui@latest init) , tailwind
-- [x] Setup folder structure with navigation
+- [x] Setup folder structure with navigation (breadcrumbs)
+- [x] Implement dark mode with next-themes
 - [ ] Add responsive mobile sidebar
-- [ ] Add breadcrumb navigation
-- [ ] Implement dark mode with next-themes
 - [ ] Add 404 Not Found page
 
 #### ⭕ Phase 3: Clerk Authentication
