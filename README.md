@@ -37,8 +37,8 @@ This roadmap mirrors the development flow ↗.
 - [x] Install and configure ShadCN UI (via npx shadcn-ui@latest init) , tailwind
 - [x] Setup folder structure with navigation (breadcrumbs)
 - [x] Implement dark mode with next-themes
-- [ ] Add responsive mobile sidebar
-- [ ] Add 404 Not Found page
+- [x] Add 404 Not Found page
+- [x] Add responsive mobile sidebar
 
 #### ⭕ Phase 3: Clerk Authentication
 
