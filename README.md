@@ -39,13 +39,7 @@ This roadmap mirrors the development flow ↗.
 - [x] Implement dark mode with next-themes
 - [x] Add 404 Not Found page
 - [x] Add responsive mobile sidebar
-
-#### ⭕ Phase 3: Clerk Authentication
-
-- [ ] Install and configure Clerk
-- [ ] Setup sign in / sign up pages
-- [ ] Add middleware for protected routes
-- [ ] Add user button in header
+- [ ] setup auth with Clerk
 
 #### ⭕ Phase 4: Database Setup with Prisma
 
