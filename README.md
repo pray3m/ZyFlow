@@ -39,14 +39,9 @@ This roadmap mirrors the development flow ↗.
 - [x] Implement dark mode with next-themes
 - [x] Add 404 Not Found page
 - [x] Add responsive mobile sidebar
-- [ ] setup auth with Clerk
+- [x] setup auth with Clerk
 
-#### ⭕ Phase 4: Database Setup with Prisma
-
-- [ ] Install Prisma and setup SQLite
-- [ ] Define schema for Workflow model
-- [ ] Create database migration
-- [ ] Setup Prisma client with singleton pattern
+- [ ] Database Setup with Prisma and SQLite
 
 #### ⭕ Phase 5: Workflows Page
 
