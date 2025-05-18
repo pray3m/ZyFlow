@@ -1,16 +1,25 @@
 "use client";
 
+import {
+  QueryClient,
+  QueryClientProvider
+} from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "next-themes";
-import React from "react";
+import React, { useState } from "react";
 
 export default function ProvidersSandwich({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [queryClient] = useState(() => new QueryClient());
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      {children}
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        {children}
+      </ThemeProvider>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   );
 }
