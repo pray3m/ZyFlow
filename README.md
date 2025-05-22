@@ -41,21 +41,13 @@ This roadmap mirrors the development flow ↗.
 - [x] Add responsive mobile sidebar
 - [x] setup auth with Clerk
 
-- [ ] Database Setup with Prisma and SQLite
-
-#### ⭕ Phase 5: Workflows Page
-
-- [ ] Create workflows dashboard page
-- [ ] Fetch and display user workflows
-- [ ] Add skeleton loading UI
-- [ ] Create “Create Workflow” dialog
-- [ ] Validate form with Zod
+- [x] Database Setup with Prisma and SQLite
+- [x] setup workflows page with the create workflow dialog
 - [ ] Create workflow via server action
-- [ ] Redirect to editor after creation
-- [ ] Setup React Flow for visual workflow builder
+
+- [ ] setup workflow editor with react flow
 
 #### ⭕ Phase 6: Workflow Editor
-
 - [ ] Setup React Flow for visual workflow builder
 - [ ] Add task menu and draggable nodes
 - [ ] Connect nodes with edges
