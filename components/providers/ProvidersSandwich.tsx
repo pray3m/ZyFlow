@@ -1,12 +1,10 @@
 "use client";
 
-import {
-  QueryClient,
-  QueryClientProvider
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "next-themes";
 import React, { useState } from "react";
+import { Toaster } from "../ui/sonner";
 
 export default function ProvidersSandwich({
   children,
@@ -19,6 +17,7 @@ export default function ProvidersSandwich({
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         {children}
       </ThemeProvider>
+      <Toaster />
       <ReactQueryDevtools />
     </QueryClientProvider>
   );
