@@ -21,11 +21,13 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Layers2Icon, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 function CreateworkflowDialog({ triggerText }: { triggerText?: string }) {
+  const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const form = useForm<createWorkflowSchemaType>({
     resolver: zodResolver(createWorkflowSchema),
@@ -37,8 +39,11 @@ function CreateworkflowDialog({ triggerText }: { triggerText?: string }) {
 
   const { mutate, isPending } = useMutation({
     mutationFn: CreateWorkflow,
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast.success("Workflow created", { id: "create-workflow" });
+      if (data?.id) {
+        router.push(`/workflow/editor/${data.id}`);
+      }
     },
     onError: () => {
       toast.error("Failed to create workflow", { id: "create-workflow" });
