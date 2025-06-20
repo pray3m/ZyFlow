@@ -3,7 +3,7 @@ import DesktopSidebar from "@/components/Sidebar";
 import { ModeToggle } from "@/components/ThemeModeToggle";
 import { Separator } from "@/components/ui/separator";
 import { SignedIn, UserButton } from "@clerk/nextjs";
-import React from "react";
+import type React from "react";
 
 function layout({ children }: { children: React.ReactNode }) {
   return (

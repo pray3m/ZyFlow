@@ -1,7 +1,7 @@
 "use client";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Workflow } from "@/lib/generated/prisma";
+import type { Workflow } from "@/lib/generated/prisma";
 import { cn } from "@/lib/utils";
 import { WorkflowStatus } from "@/types/workflow";
 import { FileTextIcon, PlayIcon, ShuffleIcon } from "lucide-react";
