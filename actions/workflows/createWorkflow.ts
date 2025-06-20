@@ -3,11 +3,10 @@
 import prisma from "@/lib/prisma";
 import {
   createWorkflowSchema,
-  createWorkflowSchemaType,
+  type createWorkflowSchemaType,
 } from "@/schema/workflow";
 import { WorkflowStatus } from "@/types/workflow";
 import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 
 export async function CreateWorkflow(form: createWorkflowSchemaType) {
   const { success, data } = createWorkflowSchema.safeParse(form);
