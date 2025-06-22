@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import type { Workflow } from "@/lib/generated/prisma";
@@ -9,7 +10,6 @@ import {
   useEdgesState,
   useNodesState,
 } from "@xyflow/react";
-import React from "react";
 
 import "@xyflow/react/dist/style.css";
 
@@ -20,8 +20,8 @@ const initialNodes = [
 const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 
 function FlowEditor({ workflow }: { workflow: Workflow }) {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [nodes, _setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [edges, _setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   return (
     <main className="h-full w-full b">

@@ -1,5 +1,4 @@
 import type { Workflow } from "@/lib/generated/prisma";
-import React from "react";
 import FlowEditor from "./FlowEditor";
 
 function Editor({ workflow }: { workflow: Workflow }) {

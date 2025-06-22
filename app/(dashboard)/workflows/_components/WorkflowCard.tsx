@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import { WorkflowStatus } from "@/types/workflow";
 import { FileTextIcon, PlayIcon, ShuffleIcon } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 import WorkflowActions from "./WorkflowActions";
 
 const statusColors = {

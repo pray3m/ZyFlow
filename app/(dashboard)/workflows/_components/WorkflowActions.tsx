@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MoreVerticalIcon, TrashIcon } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import DeleteWorkflowDialog from "./DeleteWorkflowDialog";
 
 function WorkflowActions({
