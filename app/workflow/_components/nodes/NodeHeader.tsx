@@ -1,10 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TaskRegistry } from "@/lib/workflow/task/registry";
-import { AppNodeData } from "@/types/appNode";
-import { TaskType } from "@/types/task";
+import type { TaskType } from "@/types/task";
 import { CoinsIcon, GripVerticalIcon } from "lucide-react";
-import React from "react";
 
 function NodeHeader({ taskType }: { taskType: TaskType }) {
   const task = TaskRegistry[taskType];

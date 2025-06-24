@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { useReactFlow } from "@xyflow/react";
-import React, { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 function NodeCard({
   children,
