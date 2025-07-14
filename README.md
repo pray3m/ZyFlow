@@ -43,16 +43,16 @@ This roadmap mirrors the development flow ↗.
 
 - [x] Database Setup with Prisma and SQLite
 - [x] setup workflows page with the create workflow dialog
-- [ ] Create workflow via server action
+- [x] Create workflow via server action
 
-- [ ] setup workflow editor with react flow
+- [x] setup workflow editor with react flow
+- [x] Add support for task inputs and outputs
+- [x] Save workflow definition to DB
 
 #### ⭕ Phase 6: Workflow Editor
-- [ ] Setup React Flow for visual workflow builder
+
 - [ ] Add task menu and draggable nodes
 - [ ] Connect nodes with edges
-- [ ] Save workflow definition to DB
-- [ ] Add support for task inputs and outputs
 - [ ] Delete / duplicate tasks
 - [ ] ✅ Validate workflow structure
 

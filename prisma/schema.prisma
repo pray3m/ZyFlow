@@ -17,7 +17,7 @@ model Workflow {
   name        String
   description String?
 
-  definition String
+  definition String // react flow -> {edges, nodes, viewport}
   status     String
 
   createdAt DateTime @default(now())
