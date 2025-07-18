@@ -9,7 +9,7 @@ import SaveBtn from "./SaveBtn";
 interface Props {
   title: string;
   subtitle?: string;
-  workflowId:string
+  workflowId: string;
 }
 
 function Topbar({ title, subtitle, workflowId }: Props) {
