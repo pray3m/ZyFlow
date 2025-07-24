@@ -14,9 +14,10 @@ import {
   useReactFlow,
 } from "@xyflow/react";
 
+import type { AppNode } from "@/types/appNode";
 import "@xyflow/react/dist/style.css";
+import { useCallback, useEffect } from "react";
 import NodeComponent from "./nodes/NodeComponent";
-import { useEffect } from "react";
 
 const _initialNodes = [
   { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
@@ -33,9 +34,9 @@ const snapGrid: [number, number] = [50, 50];
 const fitViewOptions = { padding: 1 };
 
 function FlowEditor({ workflow }: { workflow: Workflow }) {
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const { setViewport } = useReactFlow();
+  const { setViewport, screenToFlowPosition } = useReactFlow();
 
   useEffect(() => {
     try {
@@ -51,6 +52,28 @@ function FlowEditor({ workflow }: { workflow: Workflow }) {
     }
   }, [workflow.definition, setEdges, setNodes, setViewport]);
 
+  const onDragOver = useCallback((event: React.DragEvent) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+  }, []);
+
+  const onDrop = useCallback(
+    (event: React.DragEvent) => {
+      event.preventDefault();
+      const taskType = event.dataTransfer.getData("application/reactflow");
+      if (typeof taskType === "undefined" || !taskType) return;
+
+      const position = screenToFlowPosition({
+        x: event.clientX,
+        y: event.clientY,
+      });
+
+      const newNode = CreateFlowNode(taskType as TaskType, position);
+      setNodes((nodes) => nodes.concat(newNode));
+    },
+    [setNodes, screenToFlowPosition]
+  );
+
   return (
     <main className="h-full w-full">
       <ReactFlow
@@ -63,6 +86,8 @@ function FlowEditor({ workflow }: { workflow: Workflow }) {
         snapGrid={snapGrid}
         fitView
         fitViewOptions={fitViewOptions}
+        onDragOver={onDragOver}
+        onDrop={onDrop}
       >
         <Controls position="top-left" fitViewOptions={fitViewOptions} />
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />

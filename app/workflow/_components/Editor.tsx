@@ -1,6 +1,7 @@
 import type { Workflow } from "@/lib/generated/prisma";
 import { ReactFlowProvider } from "@xyflow/react";
 import FlowEditor from "./FlowEditor";
+import TaskMenu from "./TaskMenu";
 import Topbar from "./topbar/Topbar";
 
 function Editor({ workflow }: { workflow: Workflow }) {
@@ -13,6 +14,7 @@ function Editor({ workflow }: { workflow: Workflow }) {
           workflowId={workflow.id}
         />
         <section className="flex h-full overflow-auto">
+          <TaskMenu />
           <FlowEditor workflow={workflow} />
         </section>
       </div>
