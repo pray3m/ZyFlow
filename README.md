@@ -1,4 +1,4 @@
-# ZyFlow : Visual Web Scraping SaaS with Next.js
+# ZyFlow : No-Code Web Scraping SaaS
 
 Build scrapers visually. Powered by AI. Built with Next.js, TypeScript, React, React Flow, Prisma, and React Query.
 
