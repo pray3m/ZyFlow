@@ -49,10 +49,8 @@ This roadmap mirrors the development flow ↗.
 - [x] Add support for task inputs and outputs
 - [x] Save workflow definition to DB
 
-#### ⭕ Phase 6: Workflow Editor
-
-- [ ] Add task menu and draggable nodes
-- [ ] Connect nodes with edges
+- [x] Add task menu and draggable nodes
+- [x] Connect nodes with edges
 - [ ] Delete / duplicate tasks
 - [ ] ✅ Validate workflow structure
 
