@@ -1,7 +1,7 @@
-import { TaskRegistry } from "@/lib/workflow/task/registry";
-import type { AppNodeData } from "@/types/appNode";
 import type { NodeProps } from "@xyflow/react";
 import { memo } from "react";
+import { TaskRegistry } from "@/lib/workflow/task/registry";
+import type { AppNodeData } from "@/types/appNode";
 import NodeCard from "./NodeCard";
 import NodeHeader from "./NodeHeader";
 import { NodeInput, NodeInputs } from "./NodeInputs";

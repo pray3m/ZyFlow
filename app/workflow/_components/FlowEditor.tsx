@@ -1,25 +1,26 @@
 "use client";
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import type { Workflow } from "@/lib/generated/prisma";
-import { CreateFlowNode } from "@/lib/workflow/CreateFlowNode";
-import { TaskType } from "@/types/task";
 import {
   addEdge,
   Background,
   BackgroundVariant,
-  Connection,
+  type Connection,
   Controls,
-  Edge,
+  type Edge,
   ReactFlow,
   useEdgesState,
   useNodesState,
   useReactFlow,
 } from "@xyflow/react";
-
+import type { Workflow } from "@/lib/generated/prisma";
+import { CreateFlowNode } from "@/lib/workflow/CreateFlowNode";
 import type { AppNode } from "@/types/appNode";
+import { TaskType } from "@/types/task";
 import "@xyflow/react/dist/style.css";
 import { useCallback, useEffect } from "react";
+import { TaskRegistry } from "@/lib/workflow/task/registry";
 import DeletableEdge from "./edges/DeletableEdge";
 import NodeComponent from "./nodes/NodeComponent";
 
@@ -44,7 +45,7 @@ const fitViewOptions = { padding: 1 };
 function FlowEditor({ workflow }: { workflow: Workflow }) {
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
-  const { setViewport, screenToFlowPosition } = useReactFlow();
+  const { setViewport, screenToFlowPosition, updateNodeData } = useReactFlow();
 
   useEffect(() => {
     try {
@@ -85,8 +86,54 @@ function FlowEditor({ workflow }: { workflow: Workflow }) {
   const onConnect = useCallback(
     (connection: Connection) => {
       setEdges((eds) => addEdge({ ...connection, animated: true }, eds));
+      if (!connection.targetHandle) return;
+      // remove input value if is present on connection
+      const node = nodes.find((nd) => nd.id === connection.target);
+      if (!node) return;
+      const nodeInputs = node.data.inputs;
+      updateNodeData(node.id, {
+        inputs: {
+          ...nodeInputs,
+          [connection.targetHandle]: "",
+        },
+      });
     },
-    [setEdges]
+    [setEdges, updateNodeData, nodes]
+  );
+
+  const isValidConnection = useCallback(
+    (connection: Edge | Connection) => {
+      // No self-connection allowed
+      if (connection.source === connection.target) return false;
+
+      //same taskparam type connection
+      const source = nodes.find((node) => node.id === connection.source);
+      const target = nodes.find((node) => node.id === connection.target);
+
+      if (!source || !target) {
+        console.error("invalid connection: source or target node not found.");
+        return false;
+      }
+
+      const sourceTask = TaskRegistry[source.data.type];
+      const targetTask = TaskRegistry[source.data.type];
+
+      const output = sourceTask.outputs.find(
+        (o) => o.name === connection.sourceHandle
+      );
+
+      const input = targetTask.inputs.find(
+        (i) => i.name === connection.targetHandle
+      );
+
+      if (input?.type !== output?.type) {
+        console.error("invalid connection: type mismatch");
+        return false;
+      }
+
+      return true;
+    },
+    [nodes]
   );
 
   return (
@@ -105,6 +152,7 @@ function FlowEditor({ workflow }: { workflow: Workflow }) {
         onDragOver={onDragOver}
         onDrop={onDrop}
         onConnect={onConnect}
+        isValidConnection={isValidConnection}
       >
         <Controls position="top-left" fitViewOptions={fitViewOptions} />
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />

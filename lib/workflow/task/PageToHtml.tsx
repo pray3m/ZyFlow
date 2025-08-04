@@ -20,5 +20,9 @@ export const PageToHtmlTask = {
       name: "Html",
       type: TaskParamType.STRING,
     },
+    {
+      name: "Web page",
+      type: TaskParamType.BROWSER_INSTANCE,
+    },
   ],
 };
