@@ -9,6 +9,7 @@ import {
   type Connection,
   Controls,
   type Edge,
+  getOutgoers,
   ReactFlow,
   useEdgesState,
   useNodesState,
@@ -116,7 +117,7 @@ function FlowEditor({ workflow }: { workflow: Workflow }) {
       }
 
       const sourceTask = TaskRegistry[source.data.type];
-      const targetTask = TaskRegistry[source.data.type];
+      const targetTask = TaskRegistry[target.data.type];
 
       const output = sourceTask.outputs.find(
         (o) => o.name === connection.sourceHandle
@@ -131,9 +132,22 @@ function FlowEditor({ workflow }: { workflow: Workflow }) {
         return false;
       }
 
-      return true;
+      // CYCLE DETECTION ALGORITHM (DFS)
+      const hasCycle = (node: AppNode, visited = new Set()) => {
+        if (visited.has(node.id)) return false;
+
+        visited.add(node.id);
+
+        for (const outgoer of getOutgoers(node, nodes, edges)) {
+          if (outgoer.id === connection.source) return true;
+          if (hasCycle(outgoer, visited)) return true;
+        }
+      };
+
+      const detectedCycle = hasCycle(target);
+      return !detectedCycle;
     },
-    [nodes]
+    [nodes, edges]
   );
 
   return (

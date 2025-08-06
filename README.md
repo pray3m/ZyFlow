@@ -54,14 +54,14 @@ This roadmap mirrors the development flow ↗.
 - [ ] Delete / duplicate tasks
 - [ ] ✅ Validate workflow structure
 
-#### ⭕ Phase 7: Workflow Execution
+#### ⭕ Workflow Execution
 
 - [ ] Build execution engine (headless browser)
 - [ ] Create execution viewer page
 - [ ] Display logs, inputs, outputs, credit usage
 - [ ] Show past executions table
 
-#### ⭕ Phase 8: Task Types
+#### ⭕ Task Types
 
 - [ ] Navigate to URL task
 - [ ] Fill input field task
@@ -74,7 +74,7 @@ This roadmap mirrors the development flow ↗.
 - [ ] Deliver data via webhook task
 - [ ] Bypass scraping protection (BrightData)
 
-#### ⭕ Phase 9: User Account & Billing
+#### ⭕ User Account & Billing
 
 - [ ] Add user account settings page
 - [ ] Setup Stripe integration
@@ -82,19 +82,19 @@ This roadmap mirrors the development flow ↗.
 - [ ] Display credit balance, history, invoices
 - [ ] Track credit usage per execution
 
-#### ⭕ Phase 10: Execution Scheduler
+#### ⭕ Execution Scheduler
 
 - [ ] Build custom scheduler (no 3rd-party tools)
 - [ ] Allow users to set execution intervals
 - [ ] Store and run scheduled jobs
 
-#### ⭕ Phase 11: Credentials System
+#### ⭕ Credentials System
 
 - [ ] Add credentials manager page
 - [ ] Store encrypted API keys/passwords
 - [ ] Integrate credentials into tasks
 
-#### ⭕ Phase 12: Final Touches
+#### ⭕ Final Touches
 
 - [ ] Add workflow publish/unpublish toggle
 - [ ] Add duplicate workflow button
