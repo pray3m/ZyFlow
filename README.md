@@ -113,6 +113,34 @@ This roadmap mirrors the development flow ↗.
 - [ ] Plugin system for custom tasks
 - [ ] Add i18n support
 
+
+## Workflow Execution 
+Analyze the workflow 
+- Identify all nodes and their connections
+- Determine the order of execution based on dependencies
+
+Create an execution plan
+- List taks in correct sequence
+- Ensure each task has its inputs available before execution
+
+Set up the execution environment
+- create a space to store results between tasks
+
+Run the workflow
+- Execute each task in the determined order
+- Use inputs from the environment or user
+- Store outputs in the environment for subsequent tasks
+
+Handle any errors
+- Decide whether to continue on error or stop execution
+
+Finish up
+- Collect all outputs
+- clean up any resources used during execution
+
+Summarize the execution
+- Create a simple report of what was done
+
 ## Getting Started
 
 First, run the development server:
