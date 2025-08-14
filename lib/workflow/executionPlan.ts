@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/style/noUselessElse: <explanation> */
 import { type Edge, getIncomers } from "@xyflow/react";
 import type { AppNode } from "@/types/appNode";
 import type {
@@ -31,9 +32,11 @@ export function FlowToExecutionPlan(
     },
   ];
 
+  planned.add(entryPoint.id);
+
   for (
     let phase = 2;
-    phase <= nodes.length || planned.size < nodes.length;
+    phase <= nodes.length && planned.size < nodes.length;
     phase++
   ) {
     const nextPhase: WorkflowExecutionPlanPhase = { phase, nodes: [] };
@@ -52,12 +55,18 @@ export function FlowToExecutionPlan(
           // which means that the workflow is invalid
           console.error("invalid input:", currentNode.id, invalidInputs);
           throw new Error("TODO: handle Error 1");
+        } else {
+          // lets skip this node for now
+          continue;
         }
       }
 
       nextPhase.nodes.push(currentNode);
-      planned.add(currentNode.id);
     }
+    for (const node of nextPhase.nodes) {
+      planned.add(node.id);
+    }
+    executionPlan.push(nextPhase);
   }
 
   return { executionPlan };
@@ -70,6 +79,8 @@ function getInvalidInputs(node: AppNode, edges: Edge[], planned: Set<string>) {
     const inputValue = node.data.inputs[input.name];
     const inputValueProvided = inputValue?.length > 0;
     if (inputValueProvided) {
+      // this input is fine, so we can move on
+      continue;
     }
 
     // if a value is not provided by the user then we need to check
@@ -86,6 +97,9 @@ function getInvalidInputs(node: AppNode, edges: Edge[], planned: Set<string>) {
       planned.has(inputLinkedToOutput.source);
 
     if (requiredInputProvidedByVisitedOutput) {
+      // the inputs is required and we gave a valid value for it
+      //provided by a task that is already planned
+      continue;
     } else if (!input.required) {
       // if the input is not required, but there is an output linked to it
       // then we neeed to be sure that the output is already planned
