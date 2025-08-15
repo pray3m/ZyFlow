@@ -16,5 +16,10 @@ export interface ParamProps {
   param: TaskParam;
   value: string;
   updateNodeParamValue: (newValue: string) => void;
-  disabled?:boolean
+  disabled?: boolean;
 }
+
+export type AppNodeMisssingInputs = {
+  nodeId: string;
+  inputs: string[];
+};

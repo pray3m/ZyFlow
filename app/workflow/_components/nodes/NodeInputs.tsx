@@ -1,5 +1,6 @@
 import { Handle, Position, useEdges } from "@xyflow/react";
 import type React from "react";
+import useFlowValidation from "@/components/hooks/useFlowValidation";
 import { cn } from "@/lib/utils";
 import type { TaskParam } from "@/types/task";
 import { ColorForHandle } from "./common";
@@ -16,13 +17,23 @@ export function NodeInput({
   input: TaskParam;
   nodeId: string;
 }) {
+  const { invalidInputs } = useFlowValidation();
   const edges = useEdges();
   const isConnected = edges.some(
     (edge) => edge.target === nodeId && edge.targetHandle === input.name
   );
 
+  const hasErrors = invalidInputs
+    .find((node) => node.nodeId === nodeId)
+    ?.inputs.find((invalidInput) => invalidInput === input.name);
+
   return (
-    <div className="flex justify-start p-3 bg-secondary w-full relative">
+    <div
+      className={cn(
+        "flex justify-start p-3 bg-secondary w-full relative",
+        hasErrors && "bg-destructive/30"
+      )}
+    >
       <NodeParamField param={input} nodeId={nodeId} disabled={isConnected} />
       {!input.hideHandle && (
         <Handle

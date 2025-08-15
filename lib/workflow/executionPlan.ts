@@ -1,14 +1,23 @@
 /** biome-ignore-all lint/style/noUselessElse: <explanation> */
 import { type Edge, getIncomers } from "@xyflow/react";
-import type { AppNode } from "@/types/appNode";
+import type { AppNode, AppNodeMisssingInputs } from "@/types/appNode";
 import type {
   WorkflowExecutionPlan,
   WorkflowExecutionPlanPhase,
 } from "@/types/workflow";
 import { TaskRegistry } from "./task/registry";
 
+export enum FlowToExecutionValidationError {
+  NO_ENTRY_POINT = 0,
+  INVALID_INPUTS = 1,
+}
+
 type FlowToExecutionPlanType = {
   executionPlan?: WorkflowExecutionPlan;
+  error?: {
+    type: FlowToExecutionValidationError;
+    invalidElements?: AppNodeMisssingInputs[];
+  };
 };
 
 export function FlowToExecutionPlan(
@@ -20,10 +29,23 @@ export function FlowToExecutionPlan(
   );
 
   if (!entryPoint) {
-    throw new Error("TODO: Handle This error");
+    return {
+      error: {
+        type: FlowToExecutionValidationError.NO_ENTRY_POINT,
+      },
+    };
   }
 
+  const inputsWithErrors: AppNodeMisssingInputs[] = [];
   const planned = new Set<string>();
+
+  const invalidInputs = getInvalidInputs(entryPoint, edges, planned);
+  if (invalidInputs.length > 0) {
+    inputsWithErrors.push({
+      nodeId: entryPoint.id,
+      inputs: invalidInputs,
+    });
+  }
 
   const executionPlan: WorkflowExecutionPlan = [
     {
@@ -54,7 +76,10 @@ export function FlowToExecutionPlan(
           // this means that this particular node has an invalid input
           // which means that the workflow is invalid
           console.error("invalid input:", currentNode.id, invalidInputs);
-          throw new Error("TODO: handle Error 1");
+          inputsWithErrors.push({
+            nodeId: currentNode.id,
+            inputs: invalidInputs,
+          });
         } else {
           // lets skip this node for now
           continue;
@@ -67,6 +92,15 @@ export function FlowToExecutionPlan(
       planned.add(node.id);
     }
     executionPlan.push(nextPhase);
+  }
+
+  if (inputsWithErrors.length > 0) {
+    return {
+      error: {
+        type: FlowToExecutionValidationError.INVALID_INPUTS,
+        invalidElements: inputsWithErrors,
+      },
+    };
   }
 
   return { executionPlan };
