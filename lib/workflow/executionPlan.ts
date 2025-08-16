@@ -1,5 +1,5 @@
 /** biome-ignore-all lint/style/noUselessElse: <explanation> */
-import { type Edge, getIncomers } from "@xyflow/react";
+import type { Edge } from "@xyflow/react";
 import type { AppNode, AppNodeMisssingInputs } from "@/types/appNode";
 import type {
   WorkflowExecutionPlan,
@@ -147,4 +147,18 @@ function getInvalidInputs(node: AppNode, edges: Edge[], planned: Set<string>) {
     invalidInputs.push(input.name);
   }
   return invalidInputs;
+}
+
+function getIncomers(node: AppNode, nodes: AppNode[], edges: Edge[]) {
+  if (!node.id) {
+    return [];
+  }
+  const incomersIds = new Set();
+  edges.forEach((edge) => {
+    if (edge.target === node.id) {
+      incomersIds.add(edge.source);
+    }
+  });
+
+  return nodes.filter((n) => incomersIds.has(n.id));
 }
