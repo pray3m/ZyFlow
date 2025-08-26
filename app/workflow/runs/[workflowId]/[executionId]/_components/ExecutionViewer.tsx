@@ -11,8 +11,9 @@ import {
   type LucideIcon,
   WorkflowIcon,
 } from "lucide-react";
-import type { ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 import { GetWorkflowExecutionWithPhases } from "@/actions/workflows/getWorkflowExecutionWithPhases";
+import { getWorkflowPhaseDetails } from "@/actions/workflows/getWorkflowPhaseDetails";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -23,6 +24,7 @@ import { WorkflowExecutionStatus } from "@/types/workflow";
 type ExecutionData = Awaited<ReturnType<typeof GetWorkflowExecutionWithPhases>>;
 
 function ExecutionViewer({ initialData }: { initialData: ExecutionData }) {
+  const [selectedPhase, setSelectedPhase] = useState<string | null>(null);
   const query = useQuery({
     queryKey: ["execution", initialData?.id],
     initialData,
@@ -30,6 +32,14 @@ function ExecutionViewer({ initialData }: { initialData: ExecutionData }) {
     refetchInterval: (q) =>
       q.state.data?.status === WorkflowExecutionStatus.RUNNING ? 1000 : false,
   });
+
+  const phaseDetails = useQuery({
+    queryKey: ["phaseDetails", selectedPhase],
+    enabled: selectedPhase != null,
+    queryFn: () => getWorkflowPhaseDetails(selectedPhase!),
+  });
+
+  const isRunning = query.data?.status === WorkflowExecutionStatus.RUNNING;
 
   const duration = DatesToDurationString(
     query.data?.completedAt,
@@ -95,16 +105,24 @@ function ExecutionViewer({ initialData }: { initialData: ExecutionData }) {
             <Button
               key={phase.id}
               className="w-full justify-between"
-              variant={"ghost"}
+              variant={selectedPhase === phase.id ? "secondary" : "ghost"}
+              onClick={() => {
+                if (isRunning) return;
+                setSelectedPhase(phase.id);
+              }}
             >
               <div className="flex items-center gap-2">
                 <Badge variant={"outline"}>{index + 1}</Badge>
                 <p className="font-semibold">{phase.name}</p>
               </div>
+              <p className="text-xs text-muted-foreground"> {phase.status}</p>
             </Button>
           ))}
         </div>
       </aside>
+      <div className="flex w-full h-full">
+        <pre>{JSON.stringify(phaseDetails, null, 4)}</pre>
+      </div>
     </div>
   );
 }
