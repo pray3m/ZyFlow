@@ -18,7 +18,11 @@ model Workflow {
   description String?
 
   definition String // react flow -> {edges, nodes, viewport}
-  status     String
+  status     String // DRAFT | PUBLISHED
+
+  lastRunAt DateTime?
+  lastRunId String?
+  lastRunStatus String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
