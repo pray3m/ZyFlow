@@ -1,8 +1,16 @@
 "server only";
 
 import { revalidatePath } from "next/cache";
-import { WorkflowExecutionStatus } from "@/types/workflow";
+import type { AppNode } from "@/types/appNode";
+import {
+  ExecutionPhaseStatus,
+  WorkflowExecutionStatus,
+} from "@/types/workflow";
+import type { ExecutionPhase } from "../generated/prisma";
+import { waitFor } from "../helper/waitFor";
 import prisma from "../prisma";
+import { ExecutorRegistry } from "./executor/registry";
+import { TaskRegistry } from "./task/registry";
 
 export async function ExecuteWorkflow(executionId: string) {
   const execution = await prisma.workflowExecution.findUnique({
@@ -14,19 +22,29 @@ export async function ExecuteWorkflow(executionId: string) {
     throw new Error("execution not found");
   }
 
-  // todo: setup execution environment
   const environment = { phases: {} };
 
   await initializeWorkflowExecution(executionId, execution.workflowId);
+  await initializePhaseStatuses(execution);
 
-  //todo: initialize phases status
-
-  const executionPhase = false;
+  const creditsConsumed = 0;
+  let executionFailed = false;
   for (const phase of execution.phases) {
-    // TODO: execute phase
+    await waitFor(3000);
+    //TODO: consume credits
+    const phaseExecution = await executeWorkflowPhase(phase);
+    if (!phaseExecution.success) {
+      executionFailed = true;
+      break;
+    }
   }
 
-  //todo: finalize execution
+  await finalizeWorkflowExecution(
+    executionId,
+    execution.workflowId,
+    executionFailed,
+    creditsConsumed
+  );
   //TODO: clean up environment
 
   revalidatePath("/workflow/runs");
@@ -56,4 +74,105 @@ async function initializeWorkflowExecution(
       lastRunId: executionId,
     },
   });
+}
+
+async function initializePhaseStatuses(execution: any) {
+  await prisma.executionPhase.updateMany({
+    where: {
+      id: {
+        in: execution.phases.map((phase: any) => phase.id),
+      },
+    },
+    data: {
+      status: ExecutionPhaseStatus.PENDING,
+    },
+  });
+}
+
+async function finalizeWorkflowExecution(
+  executionId: string,
+  workflowId: string,
+  executionFailed: boolean,
+  creditsConsumed: number
+) {
+  const finalStatus = executionFailed
+    ? WorkflowExecutionStatus.FAILED
+    : WorkflowExecutionStatus.COMPLETED;
+
+  await prisma.workflowExecution.update({
+    where: { id: executionId },
+    data: {
+      status: finalStatus,
+      completedAt: new Date(),
+      creditsConsumed,
+    },
+  });
+
+  await prisma.workflow
+    .update({
+      where: {
+        id: workflowId,
+        lastRunId: executionId,
+      },
+      data: {
+        lastRunStatus: finalStatus,
+      },
+    })
+    .catch((err) => {
+      //ignore
+      // this means that we have triggered other ruyns for this workflow
+      // while an execution was running
+    });
+}
+
+async function executeWorkflowPhase(phase: ExecutionPhase) {
+  const startedAt = new Date();
+  const node = JSON.parse(phase.node) as AppNode;
+
+  //Update phase status
+  await prisma.executionPhase.update({
+    where: { id: phase.id },
+    data: {
+      status: ExecutionPhaseStatus.RUNNING,
+      startedAt,
+    },
+  });
+
+  const creditsRequired = TaskRegistry[node.data.type].credits;
+  console.log(
+    `Execution phase ${phase.name} with ${creditsRequired} credits required`
+  );
+
+  //TODO: decrement user balance (with required credits)
+
+  const success = await executePhase(phase, node);
+
+  await finalizePhase(phase.id, success);
+  return { success };
+}
+
+async function finalizePhase(phaseId: string, success: boolean) {
+  const finalStatus = success
+    ? ExecutionPhaseStatus.COMPLETED
+    : ExecutionPhaseStatus.FAILED;
+
+  await prisma.executionPhase.update({
+    where: {
+      id: phaseId,
+    },
+    data: {
+      status: finalStatus,
+      completedAt: new Date(),
+    },
+  });
+}
+
+async function executePhase(
+  phase: ExecutionPhase,
+  node: AppNode
+): Promise<boolean> {
+  const runFn = ExecutorRegistry[node.data.type];
+  if (!runFn) return false;
+
+  return await runFn();
 }

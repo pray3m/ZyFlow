@@ -20,8 +20,8 @@ model Workflow {
   definition String // react flow -> {edges, nodes, viewport}
   status     String // DRAFT | PUBLISHED
 
-  lastRunAt DateTime?
-  lastRunId String?
+  lastRunAt     DateTime?
+  lastRunId     String?
   lastRunStatus String?
 
   createdAt DateTime @default(now())
@@ -34,14 +34,15 @@ model Workflow {
 }
 
 model WorkflowExecution {
-  id          String    @id @default(cuid())
-  workflowId  String
-  userId      String
-  trigger     String
-  status      String
-  createdAt   DateTime  @default(now())
-  startedAt   DateTime?
-  completedAt DateTime?
+  id              String    @id @default(cuid())
+  workflowId      String
+  userId          String
+  trigger         String
+  status          String
+  createdAt       DateTime  @default(now())
+  startedAt       DateTime?
+  completedAt     DateTime?
+  creditsConsumed Int       @default(0)
 
   phases ExecutionPhase[]
 
