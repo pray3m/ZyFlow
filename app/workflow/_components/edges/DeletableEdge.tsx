@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import {
   BaseEdge,
   EdgeLabelRenderer,
-  EdgeProps,
+  type EdgeProps,
   getSmoothStepPath,
   useReactFlow,
 } from "@xyflow/react";
