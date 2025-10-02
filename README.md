@@ -31,6 +31,9 @@ This project is a full-stack SaaS web application where users can create, edit, 
 
 ## 🛠 To-Do / Roadmap
 
+### Notes:
+"postinstall": "prisma generate",  add --no-engine to avoid issues on M1 macs on package.json
+
 This roadmap mirrors the development flow ↗.
 
 - [x] Initialize Next.js app with TypeScript, Tailwind, ESLint
@@ -56,8 +59,8 @@ This roadmap mirrors the development flow ↗.
 
 #### ⭕ Workflow Execution
 
-- [ ] Build execution engine (headless browser)
-- [ ] Create execution viewer page
+- [] Build execution engine (headless browser)
+- [x] Create execution viewer page
 - [ ] Display logs, inputs, outputs, credit usage
 - [ ] Show past executions table
 
