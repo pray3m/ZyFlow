@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import type { Browser, Page } from "puppeteer";
 import type { AppNode } from "@/types/appNode";
 import type { Environment, ExecutionEnvironment } from "@/types/executor";
+import type { Log, LogCollector } from "@/types/log";
 import { TaskParamType } from "@/types/task";
 import {
   ExecutionPhaseStatus,
@@ -12,6 +13,7 @@ import {
 } from "@/types/workflow";
 import type { ExecutionPhase } from "../generated/prisma";
 import { waitFor } from "../helper/waitFor";
+import { createLogCollector } from "../log";
 import prisma from "../prisma";
 import { ExecutorRegistry } from "./executor/registry";
 import { TaskRegistry } from "./task/registry";
@@ -33,6 +35,8 @@ export async function ExecuteWorkflow(executionId: string) {
   await initializeWorkflowExecution(executionId, execution.workflowId);
   await initializePhaseStatuses(execution);
 
+  const logCollector = createLogCollector();
+
   const creditsConsumed = 0;
   let executionFailed = false;
   for (const phase of execution.phases) {
@@ -41,7 +45,8 @@ export async function ExecuteWorkflow(executionId: string) {
     const phaseExecution = await executeWorkflowPhase(
       phase,
       environment,
-      edges
+      edges,
+      logCollector
     );
     if (!phaseExecution.success) {
       executionFailed = true;
@@ -139,7 +144,8 @@ async function finalizeWorkflowExecution(
 async function executeWorkflowPhase(
   phase: ExecutionPhase,
   environment: Environment,
-  edges: Edge[]
+  edges: Edge[],
+  logCollector: LogCollector
 ) {
   const startedAt = new Date();
   const node = JSON.parse(phase.node) as AppNode;
@@ -162,13 +168,18 @@ async function executeWorkflowPhase(
 
   //TODO: decrement user balance (with required credits)
 
-  const success = await executePhase(phase, node, environment);
+  const success = await executePhase(phase, node, environment, logCollector);
   const outputs = environment.phases[node.id].outputs;
-  await finalizePhase(phase.id, success, outputs);
+  await finalizePhase(phase.id, success, outputs, logCollector);
   return { success };
 }
 
-async function finalizePhase(phaseId: string, success: boolean, outputs: any) {
+async function finalizePhase(
+  phaseId: string,
+  success: boolean,
+  outputs: any,
+  logCollector: LogCollector
+) {
   const finalStatus = success
     ? ExecutionPhaseStatus.COMPLETED
     : ExecutionPhaseStatus.FAILED;
@@ -181,6 +192,15 @@ async function finalizePhase(phaseId: string, success: boolean, outputs: any) {
       status: finalStatus,
       completedAt: new Date(),
       outputs: JSON.stringify(outputs),
+      logs: {
+        createMany: {
+          data: logCollector.getAll().map((log) => ({
+            message: log.message,
+            timestamp: log.timestamp,
+            logLevel: log.level,
+          })),
+        },
+      },
     },
   });
 }
@@ -188,13 +208,14 @@ async function finalizePhase(phaseId: string, success: boolean, outputs: any) {
 async function executePhase(
   phase: ExecutionPhase,
   node: AppNode,
-  environment: Environment
+  environment: Environment,
+  logCollector: LogCollector
 ): Promise<boolean> {
   const runFn = ExecutorRegistry[node.data.type];
   if (!runFn) return false;
 
   const executionEnvironment: ExecutionEnvironment<any> =
-    createExecutionEnvironment(node, environment);
+    createExecutionEnvironment(node, environment, logCollector);
   return await runFn(executionEnvironment);
 }
 
@@ -232,7 +253,11 @@ function setupEnvironmentForPhase(
   }
 }
 
-function createExecutionEnvironment(node: AppNode, environment: Environment) {
+function createExecutionEnvironment(
+  node: AppNode,
+  environment: Environment,
+  logCollector: LogCollector
+) {
   return {
     getInput: (name: string) => environment.phases[node.id]?.inputs[name],
     setOutput: (name: string, value: string) => {
@@ -248,6 +273,8 @@ function createExecutionEnvironment(node: AppNode, environment: Environment) {
     setPage: (page: Page) => {
       environment.page = page;
     },
+
+    log: logCollector,
   };
 }
 

@@ -59,7 +59,7 @@ This roadmap mirrors the development flow ↗.
 
 #### ⭕ Workflow Execution
 
-- [] Build execution engine (headless browser)
+- [x] Build execution engine (headless browser)
 - [x] Create execution viewer page
 - [ ] Display logs, inputs, outputs, credit usage
 - [ ] Show past executions table
