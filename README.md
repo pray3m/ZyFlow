@@ -54,8 +54,8 @@ This roadmap mirrors the development flow ↗.
 
 - [x] Add task menu and draggable nodes
 - [x] Connect nodes with edges
-- [ ] Delete / duplicate tasks
-- [ ] ✅ Validate workflow structure
+- [x] Delete / duplicate tasks
+- [x] ✅ Validate workflow structure
 
 #### ⭕ Workflow Execution
 
@@ -69,7 +69,6 @@ This roadmap mirrors the development flow ↗.
 - [ ] Navigate to URL task
 - [ ] Fill input field task
 - [ ] Click element task
-- [ ] Wait for element task
 - [ ] Scroll to element task
 - [ ] Extract text from element task
 - [ ] Extract data with AI task

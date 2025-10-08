@@ -38,7 +38,11 @@ import { DatesToDurationString } from "@/lib/helper/dates";
 import { GetPhasesTotalCost } from "@/lib/helper/phases";
 import { cn } from "@/lib/utils";
 import type { LogLevel } from "@/types/log";
-import { WorkflowExecutionStatus } from "@/types/workflow";
+import {
+  type ExecutionPhaseStatus,
+  WorkflowExecutionStatus,
+} from "@/types/workflow";
+import PhaseStatusBadge from "./PhaseStatusBadge";
 
 type ExecutionData = Awaited<ReturnType<typeof GetWorkflowExecutionWithPhases>>;
 
@@ -134,7 +138,7 @@ function ExecutionViewer({ initialData }: { initialData: ExecutionData }) {
                 <Badge variant={"outline"}>{index + 1}</Badge>
                 <p className="font-semibold">{phase.name}</p>
               </div>
-              <p className="text-xs text-muted-foreground"> {phase.status}</p>
+              <PhaseStatusBadge status={phase.status as ExecutionPhaseStatus} />
             </Button>
           ))}
         </div>
