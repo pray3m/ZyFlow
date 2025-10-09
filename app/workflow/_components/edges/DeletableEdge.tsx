@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   BaseEdge,
   EdgeLabelRenderer,
@@ -7,6 +6,7 @@ import {
   useReactFlow,
 } from "@xyflow/react";
 import React from "react";
+import { Button } from "@/components/ui/button";
 
 export default function DeletableEdge(props: EdgeProps) {
   const [edgePath, labelX, labelY] = getSmoothStepPath(props);

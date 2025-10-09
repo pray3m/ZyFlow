@@ -1,4 +1,6 @@
 "use client";
+import { MoreVerticalIcon, TrashIcon } from "lucide-react";
+import { useState } from "react";
 import TooltipWrapper from "@/components/TooltipWrapper";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,8 +11,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreVerticalIcon, TrashIcon } from "lucide-react";
-import { useState } from "react";
 import DeleteWorkflowDialog from "./DeleteWorkflowDialog";
 
 function WorkflowActions({

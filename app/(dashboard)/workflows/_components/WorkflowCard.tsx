@@ -1,11 +1,11 @@
 "use client";
+import { FileTextIcon, PlayIcon, ShuffleIcon } from "lucide-react";
+import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Workflow } from "@/lib/generated/prisma";
 import { cn } from "@/lib/utils";
 import { WorkflowStatus } from "@/types/workflow";
-import { FileTextIcon, PlayIcon, ShuffleIcon } from "lucide-react";
-import Link from "next/link";
 import WorkflowActions from "./WorkflowActions";
 
 const statusColors = {

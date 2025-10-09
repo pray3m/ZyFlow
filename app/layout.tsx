@@ -1,8 +1,8 @@
-import ProvidersSandwich from "@/components/providers/ProvidersSandwich";
-import { Toaster } from "@/components/ui/sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import ProvidersSandwich from "@/components/providers/ProvidersSandwich";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const geistSans = Geist({

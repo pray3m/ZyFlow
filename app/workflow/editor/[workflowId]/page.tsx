@@ -1,6 +1,5 @@
-import prisma from "@/lib/prisma";
-
 import { auth } from "@clerk/nextjs/server";
+import prisma from "@/lib/prisma";
 import Editor from "../../_components/Editor";
 
 type Params = Promise<{ workflowId: string }>;

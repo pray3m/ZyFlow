@@ -1,9 +1,9 @@
+import { SignedIn, UserButton } from "@clerk/nextjs";
+import type React from "react";
 import BreadcrumbHeader from "@/components/BreadcrumbHeader";
 import DesktopSidebar from "@/components/Sidebar";
 import { ModeToggle } from "@/components/ThemeModeToggle";
 import { Separator } from "@/components/ui/separator";
-import { SignedIn, UserButton } from "@clerk/nextjs";
-import type React from "react";
 
 function layout({ children }: { children: React.ReactNode }) {
   return (

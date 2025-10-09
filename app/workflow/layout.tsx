@@ -1,7 +1,7 @@
+import type React from "react";
 import Logo from "@/components/Logo";
 import { ModeToggle } from "@/components/ThemeModeToggle";
 import { Separator } from "@/components/ui/separator";
-import type React from "react";
 
 function layout({ children }: { children: React.ReactNode }) {
   return (

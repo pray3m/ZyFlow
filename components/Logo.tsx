@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
 import { SquareDashedMousePointer } from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface LogoProps {
   fontSize?: string;
