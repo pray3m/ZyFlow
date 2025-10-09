@@ -4,7 +4,6 @@ import {
   CircleXIcon,
   Loader2Icon,
 } from "lucide-react";
-import React from "react";
 import { ExecutionPhaseStatus } from "@/types/workflow";
 
 const PhaseStatusBadge = ({ status }: { status: ExecutionPhaseStatus }) => {

@@ -5,7 +5,6 @@ import {
   getSmoothStepPath,
   useReactFlow,
 } from "@xyflow/react";
-import React from "react";
 import { Button } from "@/components/ui/button";
 
 export default function DeletableEdge(props: EdgeProps) {

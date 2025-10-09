@@ -1,5 +1,4 @@
 import puppeteer from "puppeteer";
-import { waitFor } from "@/lib/helper/waitFor";
 import type { ExecutionEnvironment } from "@/types/executor";
 import type { LaunchBrowserTask } from "../task/LaunchBrowser";
 

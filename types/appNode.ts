@@ -4,7 +4,6 @@ import type { TaskParam, TaskType } from "./task";
 export interface AppNodeData {
   type: TaskType;
   inputs: Record<string, string>;
-  // biome-ignore lint/suspicious/noExplicitAny: <>
   [key: string]: any;
 }
 

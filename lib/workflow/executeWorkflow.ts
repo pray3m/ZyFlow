@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import type { Browser, Page } from "puppeteer";
 import type { AppNode } from "@/types/appNode";
 import type { Environment, ExecutionEnvironment } from "@/types/executor";
-import type { Log, LogCollector } from "@/types/log";
+import type { LogCollector } from "@/types/log";
 import { TaskParamType } from "@/types/task";
 import {
   ExecutionPhaseStatus,
@@ -310,6 +310,6 @@ async function decrementCredits(
   } catch (error) {
     console.error(error);
     logCollector.error("insufficient balance");
-    return true;
+    return false;
   }
 }

@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useReactFlow } from "@xyflow/react";
 import { PlayIcon } from "lucide-react";
-import React from "react";
 import { toast } from "sonner";
 import { RunWorkflow } from "@/actions/workflows/runWorkflow";
 import useExecutionPlan from "@/components/hooks/useExecutionPlan";

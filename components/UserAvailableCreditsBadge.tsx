@@ -3,7 +3,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { CoinsIcon } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 import { GetAvailableCredits } from "@/actions/billing/getAvailableCredits";
 import { cn } from "@/lib/utils";
 import ReactCountupWrapper from "./ReactCountupWrapper";
