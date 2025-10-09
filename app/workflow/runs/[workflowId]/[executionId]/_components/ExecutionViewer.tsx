@@ -11,7 +11,7 @@ import {
   type LucideIcon,
   WorkflowIcon,
 } from "lucide-react";
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { GetWorkflowExecutionWithPhases } from "@/actions/workflows/getWorkflowExecutionWithPhases";
 import { getWorkflowPhaseDetails } from "@/actions/workflows/getWorkflowPhaseDetails";
 import { Badge } from "@/components/ui/badge";
@@ -63,6 +63,22 @@ function ExecutionViewer({ initialData }: { initialData: ExecutionData }) {
   });
 
   const isRunning = query.data?.status === WorkflowExecutionStatus.RUNNING;
+
+  useEffect(() => {
+    // while running we auto select the current running phase in sidebar
+    const phases = query.data?.phases || [];
+    if (isRunning) {
+      //select the last executed phase
+      const phaseToSelect = phases?.toSorted((a, b) =>
+        a.startedAt! > b.startedAt! ? -1 : 1
+      )[0];
+      setSelectedPhase(phaseToSelect?.id);
+    }
+    const phaseToSelect = phases?.toSorted((a, b) =>
+      a.completedAt! > b.completedAt! ? -1 : 1
+    )[0];
+    setSelectedPhase(phaseToSelect?.id);
+  }, [query.data?.phases, isRunning]);
 
   const duration = DatesToDurationString(
     query.data?.completedAt,
