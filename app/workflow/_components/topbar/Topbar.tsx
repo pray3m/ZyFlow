@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import TooltipWrapper from "@/components/TooltipWrapper";
 import { Button } from "@/components/ui/button";
 import ExecuteBtn from "./ExecuteBtn";
+import NavigationTabs from "./NavigationTabs";
 import SaveBtn from "./SaveBtn";
 
 interface Props {
@@ -33,6 +34,7 @@ function Topbar({ title, subtitle, workflowId, hideButtons = false }: Props) {
           )}
         </div>
       </div>
+      <NavigationTabs workflowId={workflowId} />
       <div className="flex gap-1 flex-1 justify-end">
         {!hideButtons && (
           <>
