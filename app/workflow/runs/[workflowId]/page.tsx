@@ -4,6 +4,7 @@ import { getWorkflowExecutions } from "@/actions/workflows/getWorkflowExecutions
 import { Spinner } from "@/components/ui/spinner";
 import { waitFor } from "@/lib/helper/waitFor";
 import Topbar from "../../_components/topbar/Topbar";
+import ExecutionsTable from "./_components/ExecutionsTable";
 
 export default async function ExecutionsPage({
   params,
@@ -26,13 +27,13 @@ export default async function ExecutionsPage({
           </div>
         }
       >
-        <ExecutionsTable workflowId={workflowId} />
+        <ExecutionsTableWrapper workflowId={workflowId} />
       </Suspense>
     </div>
   );
 }
 
-async function ExecutionsTable({ workflowId }: { workflowId: string }) {
+async function ExecutionsTableWrapper({ workflowId }: { workflowId: string }) {
   waitFor(400);
   const executions = await getWorkflowExecutions(workflowId);
   if (!executions) return <div>No data</div>;
@@ -57,5 +58,9 @@ async function ExecutionsTable({ workflowId }: { workflowId: string }) {
     );
   }
 
-  return <pre>{JSON.stringify(executions, null, 4)}</pre>;
+  return (
+    <div className="container py-6 w-full">
+      <ExecutionsTable workflowId={workflowId} initialData={executions} />
+    </div>
+  );
 }
