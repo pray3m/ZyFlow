@@ -17,8 +17,11 @@ model Workflow {
   name        String
   description String?
 
-  definition String // react flow -> {edges, nodes, viewport}
-  status     String // DRAFT | PUBLISHED
+  definition    String // react flow -> {edges, nodes, viewport}
+  executionPlan String?
+  creditsCost   Int     @default(0)
+
+  status String // DRAFT | PUBLISHED
 
   lastRunAt     DateTime?
   lastRunId     String?

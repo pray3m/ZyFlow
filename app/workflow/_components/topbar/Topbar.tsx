@@ -6,6 +6,7 @@ import TooltipWrapper from "@/components/TooltipWrapper";
 import { Button } from "@/components/ui/button";
 import ExecuteBtn from "./ExecuteBtn";
 import NavigationTabs from "./NavigationTabs";
+import PublishBtn from "./PublishBtn";
 import SaveBtn from "./SaveBtn";
 
 interface Props {
@@ -40,6 +41,7 @@ function Topbar({ title, subtitle, workflowId, hideButtons = false }: Props) {
           <>
             <ExecuteBtn workflowId={workflowId} />
             <SaveBtn workflowId={workflowId} />
+            <PublishBtn workflowId={workflowId} />
           </>
         )}
       </div>
