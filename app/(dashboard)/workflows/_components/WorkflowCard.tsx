@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import type { Workflow } from "@/lib/generated/prisma";
 import { cn } from "@/lib/utils";
 import { WorkflowStatus } from "@/types/workflow";
+import RunBtn from "./RunBtn";
 import WorkflowActions from "./WorkflowActions";
 
 const statusColors = {
@@ -48,6 +49,7 @@ function WorkflowCard({ workflow }: { workflow: Workflow }) {
           </div>
         </div>
         <div className="flex items-center space-x-2">
+          {!isDraft && <RunBtn workflowId={workflow.id} />}
           <Link
             href={`/workflow/editor/${workflow.id}`}
             className={cn(
