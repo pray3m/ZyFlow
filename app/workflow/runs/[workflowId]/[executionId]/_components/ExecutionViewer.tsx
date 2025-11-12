@@ -316,7 +316,8 @@ function LogViewer({ logs }: { logs: ExecutionLog[] | undefined }) {
           <TableHeader className="text-muted-foreground text-sm">
             <TableRow>
               <TableHead>Time</TableHead>
-              <TableHead>Level</TableHead> <TableHead>Message</TableHead>
+              <TableHead>Level</TableHead>
+              <TableHead>Message</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

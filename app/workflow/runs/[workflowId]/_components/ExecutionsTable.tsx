@@ -41,7 +41,8 @@ export default function ExecutionsTable({
         <TableHeader className="bg-muted">
           <TableRow>
             <TableHead>ID</TableHead>
-            <TableHead>Status</TableHead> <TableHead>Consumed</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Consumed</TableHead>
             <TableHead className="text-right text-xs text-muted-foreground ">
               Started at (desc)
             </TableHead>

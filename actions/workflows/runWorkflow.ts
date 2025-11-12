@@ -11,6 +11,7 @@ import {
   type WorkflowExecutionPlan,
   WorkflowExecutionStatus,
   WorkflowExecutionTrigger,
+  WorkflowStatus,
 } from "@/types/workflow";
 
 export async function RunWorkflow(form: {
@@ -39,21 +40,28 @@ export async function RunWorkflow(form: {
   }
 
   let executionPlan: WorkflowExecutionPlan;
-  if (!flowDefinition) {
-    throw new Error("flow definition is not defined");
-  }
+  if (workflow.status === WorkflowStatus.PUBLISHED) {
+    if (!workflow.executionPlan) {
+      throw new Error("no execution plan found in the published workflow.");
+    }
+    executionPlan = JSON.parse(workflow.executionPlan);
+  } else {
+    //workflow is a draft
+    if (!flowDefinition) {
+      throw new Error("flow definition is not defined.");
+    }
+    const flow = JSON.parse(flowDefinition);
+    const result = FlowToExecutionPlan(flow.nodes, flow.edges);
+    if (result.error) {
+      throw new Error("fkow definition is not valid");
+    }
 
-  const flow = JSON.parse(flowDefinition);
-  const result = FlowToExecutionPlan(flow.nodes, flow.edges);
-  if (result.error) {
-    throw new Error("fkow definition is not valid");
-  }
+    if (!result.executionPlan) {
+      throw new Error("no execution plan found");
+    }
 
-  if (!result.executionPlan) {
-    throw new Error("no execution plan found");
+    executionPlan = result.executionPlan;
   }
-
-  executionPlan = result.executionPlan;
 
   const execution = await prisma.workflowExecution.create({
     data: {

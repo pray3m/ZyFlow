@@ -61,8 +61,8 @@ This roadmap mirrors the development flow ↗.
 
 - [x] Build execution engine (headless browser)
 - [x] Create execution viewer page
-- [ ] Display logs, inputs, outputs, credit usage
-- [ ] Show past executions table
+- [x] Display logs, inputs, outputs, credit usage
+- [x] Show past executions table
 
 #### ⭕ Task Types
 
@@ -114,7 +114,7 @@ This roadmap mirrors the development flow ↗.
 - [ ] Improve mobile UX
 - [ ] Plugin system for custom tasks
 - [ ] Add i18n support
-
+- [ ] Queue-based Background Jobs (BullMQ, Inngest, or Trigger.dev)
 
 ## Workflow Execution 
 Analyze the workflow 

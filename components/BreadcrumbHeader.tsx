@@ -18,8 +18,8 @@ function BreadcrumbHeader() {
       <MobileSidebar />
       <Breadcrumb>
         <BreadcrumbList>
-          {paths.map((path, index) => (
-            <React.Fragment key={index}>
+          {paths.map((path) => (
+            <React.Fragment key={path || "home"}>
               <BreadcrumbItem>
                 <BreadcrumbLink className="capitalize" href={`/${path}`}>
                   {path === "" ? "home" : path}
