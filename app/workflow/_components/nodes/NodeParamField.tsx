@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import type { AppNode } from "@/types/appNode";
 import { type TaskParam, TaskParamType } from "@/types/task";
 import { BrowserInstanceParam } from "./param/BrowserInstanceParam";
+import { SelectParam } from "./param/SelectParam";
 import StringParam from "./param/StringParam";
 
 function NodeParamField({
@@ -48,6 +49,16 @@ function NodeParamField({
           param={param}
           value={""}
           updateNodeParamValue={updateNodeParamValue}
+        />
+      );
+
+    case TaskParamType.SELECT:
+      return (
+        <SelectParam
+          param={param}
+          value={value}
+          updateNodeParamValue={updateNodeParamValue}
+          disabled={disabled}
         />
       );
 
