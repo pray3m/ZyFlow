@@ -4,6 +4,7 @@ import cronstrue from "cronstrue";
 import { CalendarIcon, ClockIcon, TriangleAlertIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { RemoveWorkflowSchedule } from "@/actions/workflows/removeWorkflowSchedule";
 import { UpdateWorkflowCron } from "@/actions/workflows/updateWorkflowCron";
 import CustomDialogHeader from "@/components/CustomDialogHeader";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,16 @@ function SchedulerDialog(props: { workflowId: string; cron: string | null }) {
 
   const mutation = useMutation({
     mutationFn: UpdateWorkflowCron,
+    onSuccess: () => {
+      toast.success("Schedule updated successfully.", { id: "cron" });
+    },
+    onError: () => {
+      toast.error("Something went wrong.", { id: "cron" });
+    },
+  });
+
+  const removeScheduleMutation = useMutation({
+    mutationFn: RemoveWorkflowSchedule,
     onSuccess: () => {
       toast.success("Schedule updated successfully.", { id: "cron" });
     },
@@ -95,6 +106,26 @@ function SchedulerDialog(props: { workflowId: string; cron: string | null }) {
           >
             {validCron ? readableCron : " Not a valid cron expression."}
           </div>
+
+          {workflowHasValidCron && (
+            <DialogClose asChild>
+              <div className="">
+                <Button
+                  className="w-full text-destructive border-destructive hover:text-destructive"
+                  variant={"outline"}
+                  disabled={
+                    mutation.isPending || removeScheduleMutation.isPending
+                  }
+                  onClick={() => {
+                    toast.loading("Removing schedule...", { id: "cron" });
+                    removeScheduleMutation.mutate(props.workflowId);
+                  }}
+                >
+                  Remove current schedule
+                </Button>
+              </div>
+            </DialogClose>
+          )}
         </div>
         <DialogFooter className="px-6 gap-2">
           <DialogClose asChild>
