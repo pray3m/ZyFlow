@@ -1,12 +1,17 @@
 import type { ExecutionEnvironment } from "@/types/executor";
 import type { TaskType } from "@/types/task";
 import type { WorkflowTask } from "@/types/workflow";
+import { AddPropertyToJsonExecutor } from "./AddPropertyToJsonExecutor";
 import { ClickElementExecutor } from "./ClickElementExecutor";
 import { DeliverViaWebhookExecutor } from "./DeliverViaWebhookExecutor";
+import { ExtractDataWithAIExecutor } from "./ExtractDataWithAiExecutor";
 import { ExtractTextFromElementExecutor } from "./ExtractTextFromElementExecutor";
 import { FillInputExecutor } from "./FillInputExecutor";
 import { LaunchBrowserExecutor } from "./LaunchBrowserExecutor";
+import { NavigateUrlExecutor } from "./NavigateUrlExecutor";
 import { PageToHtmlExecutor } from "./PageToHtmlExecutor";
+import { ReadPropertyFromJsonExecutor } from "./ReadPropertyFromJsonExecutor";
+import { ScrollToElementExecutor } from "./ScrollToElementExecutor";
 import { WaitForElementExecutor } from "./WaitForElementExecutor";
 
 type ExecutorFn<T extends WorkflowTask> = (
@@ -25,4 +30,9 @@ export const ExecutorRegistry: RegistryType = {
   CLICK_ELEMENT: ClickElementExecutor,
   WAIT_FOR_ELEMENT: WaitForElementExecutor,
   DELIVER_VIA_WEBHOOK: DeliverViaWebhookExecutor,
+  EXTRACT_DATA_WITH_AI: ExtractDataWithAIExecutor,
+  READ_PROPERTY_FROM_JSON: ReadPropertyFromJsonExecutor,
+  ADD_PROPERTY_TO_JSON: AddPropertyToJsonExecutor,
+  NAVIGATE_URL: NavigateUrlExecutor,
+  SCROLL_TO_ELEMENT: ScrollToElementExecutor,
 };

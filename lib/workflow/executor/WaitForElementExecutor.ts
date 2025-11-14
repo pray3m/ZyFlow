@@ -21,7 +21,6 @@ export async function WaitForElementExecutor(
       hidden: visibility === "hidden",
     });
     environment.log.info(`Element ${selector} became: ${visibility}`);
-    waitFor(3000);
     return true;
   } catch (error: any) {
     environment.log.error(error.message);

@@ -1,4 +1,11 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { Loader2, ShieldEllipsis } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useCallback, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { CreateCredential } from "@/actions/credentials/CreateCredential";
 import CustomDialogHeader from "@/components/CustomDialogHeader";
 import { Button } from "@/components/ui/button";
@@ -18,14 +25,6 @@ import {
   createCredentialSchema,
   type createCredentialSchemaType,
 } from "@/schema/credential";
-import type { createWorkflowSchemaType } from "@/schema/workflow";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { Loader2, ShieldEllipsis } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 
 function CreateCredentialDialog({ triggerText }: { triggerText?: string }) {
   const router = useRouter();
@@ -42,6 +41,8 @@ function CreateCredentialDialog({ triggerText }: { triggerText?: string }) {
     mutationFn: CreateCredential,
     onSuccess: (data) => {
       toast.success("Credential created", { id: "create-credential" });
+      form.reset();
+      setOpen(false);
     },
     onError: () => {
       toast.error("Failed to create credential", { id: "create-credential" });
@@ -49,7 +50,7 @@ function CreateCredentialDialog({ triggerText }: { triggerText?: string }) {
   });
 
   const onSubmit = useCallback(
-    (values: createWorkflowSchemaType) => {
+    (values: createCredentialSchemaType) => {
       toast.loading("Creating credential...", { id: "create-credential" });
       mutate(values);
     },
@@ -57,13 +58,7 @@ function CreateCredentialDialog({ triggerText }: { triggerText?: string }) {
   );
 
   return (
-    <Dialog
-      open={open}
-      onOpenChange={(open) => {
-        form.reset();
-        setOpen(open);
-      }}
-    >
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button> {triggerText ?? "Create"}</Button>
       </DialogTrigger>
