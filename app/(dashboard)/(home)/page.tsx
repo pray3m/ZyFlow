@@ -10,7 +10,7 @@ import type { Period } from "@/types/analytics";
 import ExecutionStatusChart from "./_components/ExecutionStatusChart";
 import PeriodSelector from "./_components/PeriodSelector";
 import StatsCard from "./_components/StatsCard";
-import CreditsUsageChart from "./billing/_components/CreditsUsageChart";
+import CreditsUsageChart from "../billing/_components/CreditsUsageChart";
 
 async function Homepage({
   searchParams,

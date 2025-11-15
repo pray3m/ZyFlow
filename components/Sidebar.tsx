@@ -17,7 +17,7 @@ import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 const routes = [
   {
-    href: "/",
+    href: "",
     label: "Home",
     icon: HomeIcon,
   },
@@ -55,7 +55,7 @@ function DesktopSidebar() {
       <div className="flex flex-col p-2">
         {routes.map((route) => (
           <Link
-            href={route.href}
+            href={`/${route.href}`}
             key={route.href}
             className={buttonVariants({
               variant:
@@ -98,7 +98,7 @@ export function MobileSidebar() {
             <div className="flex flex-col gap-1">
               {routes.map((route) => (
                 <Link
-                  href={route.href}
+                  href={`/${route.href}`}
                   key={route.href}
                   className={buttonVariants({
                     variant:
