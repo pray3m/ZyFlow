@@ -6,9 +6,12 @@ import { success } from "zod";
 import { PeriodToDateRange } from "@/lib/helper/dates";
 import prisma from "@/lib/prisma";
 import type { Period } from "@/types/analytics";
-import { WorkflowExecutionStatus } from "@/types/workflow";
+import {
+  ExecutionPhaseStatus,
+  WorkflowExecutionStatus,
+} from "@/types/workflow";
 
-const { COMPLETED, FAILED } = WorkflowExecutionStatus;
+const { COMPLETED, FAILED } = ExecutionPhaseStatus;
 
 type Stats = Record<
   string,
@@ -18,7 +21,7 @@ type Stats = Record<
   }
 >;
 
-export async function GetWorkflowExecutionStats(period: Period) {
+export async function GetCreditsUsageInPeriod(period: Period) {
   const { userId } = await auth();
 
   if (!userId) {
@@ -27,7 +30,7 @@ export async function GetWorkflowExecutionStats(period: Period) {
 
   const dateRange = PeriodToDateRange(period);
 
-  const executions = await prisma.workflowExecution.findMany({
+  const executionPhases = await prisma.executionPhase.findMany({
     where: {
       userId,
       startedAt: {
@@ -62,14 +65,14 @@ export async function GetWorkflowExecutionStats(period: Period) {
   //     }
   //   ]
 
-  executions.forEach((execution) => {
-    const date = format(execution.startedAt!, dateFormat);
-    if (execution.status === WorkflowExecutionStatus.COMPLETED) {
-      stats[date].success += 1;
+  executionPhases.forEach((phase) => {
+    const date = format(phase.startedAt!, dateFormat);
+    if (phase.status === COMPLETED) {
+      stats[date].success += phase.creditsConsumed || 0;
     }
 
-    if (execution.status === WorkflowExecutionStatus.FAILED) {
-      stats[date].failed += 1;
+    if (phase.status === FAILED) {
+      stats[date].failed += phase.creditsConsumed || 0;
     }
   });
 
