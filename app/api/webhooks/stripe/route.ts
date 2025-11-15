@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
+import { HandleCheckoutSessionCompleted } from "@/lib/stripe/HandleCheckoutSessionCompleted";
 import { stripe } from "@/lib/stripe/stripe";
 
 export async function POST(request: Request) {
