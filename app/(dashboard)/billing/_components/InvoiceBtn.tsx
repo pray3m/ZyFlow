@@ -1,3 +1,4 @@
+"use client";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon } from "lucide-react";
 import { toast } from "sonner";
@@ -16,7 +17,7 @@ function InvoiceBtn({ id }: { id: string }) {
     <Button
       variant={"ghost"}
       size={"sm"}
-      className="text-xs gap-2 text-muted-foreground px-1"
+      className="text-sm gap-2 text-muted-foreground px-2 py-2"
       disabled={mutation.isPending}
       onClick={() => mutation.mutate(id)}
     >
