@@ -1,0 +1,24 @@
+allowBuilds:
+  '@clerk/shared': true
+  '@prisma/client': true
+  '@prisma/engines': true
+  '@tailwindcss/oxide': true
+  prisma: true
+  puppeteer: true
+  sharp: true
+  unrs-resolver: true
+
+minimumReleaseAgeExclude:
+  - '@clerk/backend@2.33.4'
+  - '@clerk/clerk-react@5.61.7'
+  - '@clerk/nextjs@6.39.4'
+  - '@clerk/shared@3.47.6'
+  - '@clerk/types@4.101.24'
+
+overrides:
+  '@types/react': 19.1.8
+  '@types/react-dom': 19.1.6
+  basic-ftp: '>=5.3.1'
+  ws: '>=8.20.1'
+  ip-address: '>=10.1.1'
+  tar: '>=7.5.4'

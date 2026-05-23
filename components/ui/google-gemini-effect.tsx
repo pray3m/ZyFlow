@@ -1,9 +1,9 @@
 "use client";
-import { type MotionValue, motion } from "motion/react";
+import { type MotionValue, motion, type Transition } from "motion/react";
 import React from "react";
 import { cn } from "@/lib/utils";
 
-const transition = {
+const transition: Transition = {
   duration: 0,
   ease: "linear",
 };

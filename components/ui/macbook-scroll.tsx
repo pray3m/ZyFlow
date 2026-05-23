@@ -1,29 +1,34 @@
 "use client";
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { MotionValue, motion, useScroll, useTransform } from "motion/react";
-import { cn } from "@/lib/utils";
 import {
   IconBrightnessDown,
   IconBrightnessUp,
+  IconCaretDownFilled,
+  IconCaretLeftFilled,
   IconCaretRightFilled,
   IconCaretUpFilled,
   IconChevronUp,
+  IconCommand,
   IconMicrophone,
   IconMoon,
   IconPlayerSkipForward,
   IconPlayerTrackNext,
   IconPlayerTrackPrev,
+  IconSearch,
   IconTable,
   IconVolume,
   IconVolume2,
   IconVolume3,
+  IconWorld,
 } from "@tabler/icons-react";
-import { IconSearch } from "@tabler/icons-react";
-import { IconWorld } from "@tabler/icons-react";
-import { IconCommand } from "@tabler/icons-react";
-import { IconCaretLeftFilled } from "@tabler/icons-react";
-import { IconCaretDownFilled } from "@tabler/icons-react";
-
+import {
+  type MotionValue,
+  motion,
+  useScroll,
+  useTransform,
+} from "motion/react";
+import type React from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 export const MacbookScroll = ({
   src,
@@ -53,12 +58,12 @@ export const MacbookScroll = ({
   const scaleX = useTransform(
     scrollYProgress,
     [0, 0.3],
-    [1.2, isMobile ? 1 : 1.5],
+    [1.2, isMobile ? 1 : 1.5]
   );
   const scaleY = useTransform(
     scrollYProgress,
     [0, 0.3],
-    [0.6, isMobile ? 1 : 1.5],
+    [0.6, isMobile ? 1 : 1.5]
   );
   const translate = useTransform(scrollYProgress, [0, 1], [0, 1500]);
   const rotate = useTransform(scrollYProgress, [0.1, 0.12, 0.3], [-28, -28, 0]);
@@ -353,16 +358,16 @@ export const Keypad = () => {
           <span className="block">P</span>
         </KBtn>
         <KBtn>
-          <span className="block">{`{`}</span>
-          <span className="block">{`[`}</span>
+          <span className="block">{"{"}</span>
+          <span className="block">{"["}</span>
         </KBtn>
         <KBtn>
-          <span className="block">{`}`}</span>
-          <span className="block">{`]`}</span>
+          <span className="block">{"}"}</span>
+          <span className="block">{"]"}</span>
         </KBtn>
         <KBtn>
-          <span className="block">{`|`}</span>
-          <span className="block">{`\\`}</span>
+          <span className="block">{"|"}</span>
+          <span className="block">{"\\"}</span>
         </KBtn>
       </div>
 
@@ -402,8 +407,8 @@ export const Keypad = () => {
           <span className="block">L</span>
         </KBtn>
         <KBtn>
-          <span className="block">{`:`}</span>
-          <span className="block">{`;`}</span>
+          <span className="block">{":"}</span>
+          <span className="block">{";"}</span>
         </KBtn>
         <KBtn>
           <span className="block">{`"`}</span>
@@ -447,16 +452,16 @@ export const Keypad = () => {
           <span className="block">M</span>
         </KBtn>
         <KBtn>
-          <span className="block">{`<`}</span>
-          <span className="block">{`,`}</span>
+          <span className="block">{"<"}</span>
+          <span className="block">{","}</span>
         </KBtn>
         <KBtn>
-          <span className="block">{`>`}</span>
-          <span className="block">{`.`}</span>
+          <span className="block">{">"}</span>
+          <span className="block">{"."}</span>
         </KBtn>
         <KBtn>
-          <span className="block">{`?`}</span>
-          <span className="block">{`/`}</span>
+          <span className="block">{"?"}</span>
+          <span className="block">{"/"}</span>
         </KBtn>
         <KBtn
           className="w-[3.65rem] items-end justify-end pr-[4px] pb-[2px]"
@@ -559,13 +564,13 @@ export const KBtn = ({
     <div
       className={cn(
         "[transform:translateZ(0)] rounded-[4px] p-[0.5px] [will-change:transform]",
-        backlit && "bg-white/[0.2] shadow-xl shadow-white",
+        backlit && "bg-white/[0.2] shadow-xl shadow-white"
       )}
     >
       <div
         className={cn(
           "flex h-6 w-6 items-center justify-center rounded-[3.5px] bg-[#0A090D]",
-          className,
+          className
         )}
         style={{
           boxShadow:
@@ -576,7 +581,7 @@ export const KBtn = ({
           className={cn(
             "flex w-full flex-col items-center justify-center text-[5px] text-neutral-200",
             childrenClassName,
-            backlit && "text-white",
+            backlit && "text-white"
           )}
         >
           {children}

@@ -7,15 +7,15 @@ import { GetWorkflowExecutionStats } from "@/actions/analytics/GetWorkflowExecut
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Period } from "@/types/analytics";
+import CreditsUsageChart from "../billing/_components/CreditsUsageChart";
 import ExecutionStatusChart from "./_components/ExecutionStatusChart";
 import PeriodSelector from "./_components/PeriodSelector";
 import StatsCard from "./_components/StatsCard";
-import CreditsUsageChart from "../billing/_components/CreditsUsageChart";
 
 async function Homepage({
   searchParams,
 }: {
-  searchParams: { month?: string; year?: string };
+  searchParams: Promise<{ month?: string; year?: string }>;
 }) {
   const currentDate = new Date();
   const { month, year } = await searchParams;
